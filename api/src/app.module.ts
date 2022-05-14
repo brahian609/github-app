@@ -1,8 +1,14 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { GithubModule } from './github/github.module';
 
 @Module({
-  imports: [GithubModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
+    GithubModule
+  ],
   controllers: [],
   providers: [],
 })
