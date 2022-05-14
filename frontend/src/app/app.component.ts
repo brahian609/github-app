@@ -9,7 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'date', 'commit'];
+  displayedColumns: string[] = ['name', 'date', 'commit', 'actions'];
   dataSource = new MatTableDataSource<any>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(private appService: AppService) {}
@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  goToEdit(id: number) {
-
+  goToEdit(sha: string) {
+    console.log(sha);
   }
 
 }
