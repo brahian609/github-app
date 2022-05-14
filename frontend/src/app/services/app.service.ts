@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { BaseRequestService } from '../../core/http/base-request.service';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../environments/environment';
-import { User } from "../models/user";
-import { Commit } from "../models/commit";
+import { User } from '../models';
+import { Commit } from '../models';
 
 @Injectable()
 export class AppService {
