@@ -3,8 +3,7 @@ import { GithubService } from './github.service';
 
 @Controller('github/commits')
 export class GithubController {
-    constructor(private githubService: GithubService) {
-    }
+    constructor(private githubService: GithubService) {}
 
     @Get()
     getAllCommits(): object {
