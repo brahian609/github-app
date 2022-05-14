@@ -16,6 +16,15 @@ export class GithubService {
       this.GITHUB_REPO = configService.get<string>('GITHUB_REPO');
     }
 
+    getUser(): Observable<AxiosResponse<object[]>> {
+        return this.httpService.get(`${this.GITHUB_API_URL}/users/${this.GITHUB_USERNAME}`)
+            .pipe(
+                map((response: AxiosResponse) => {
+                    return response.data;
+                }),
+            );
+    }
+
     getCommits(): Observable<AxiosResponse<object[]>> {
       return this.httpService.get(`${this.GITHUB_API_URL}/repos/${this.GITHUB_USERNAME}/${this.GITHUB_REPO}/commits`)
         .pipe(
