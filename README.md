@@ -38,4 +38,4 @@ GitHub API Integration
     $ ng serve
     ```
    
-    Dev server will run in `http://localhost:4200/`. 
+    Frontend app will run in `http://localhost:4200/`. 

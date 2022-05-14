@@ -29,7 +29,7 @@ export class GithubService {
     }
 
     async getCommits(): Promise<CommitDto[]> {
-      return await this.httpService.get(`${this.GITHUB_API_URL}/repos/${this.GITHUB_USERNAME}/${this.GITHUB_REPO}/commits`).toPromise()
+      return await this.httpService.get(`${this.GITHUB_API_URL}/repos/${this.GITHUB_USERNAME}/${this.GITHUB_REPO}/commits?sort=committer-date`).toPromise()
           .then((response: AxiosResponse) => {
               if (response.status === 200) {
                   return response.data.map(row => toCommitDto(row));
