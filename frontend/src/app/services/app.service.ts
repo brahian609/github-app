@@ -9,6 +9,10 @@ export class AppService {
 
   constructor(private readonly baseRequestService: BaseRequestService) { }
 
+  getUser(): Observable<any> {
+    return this.baseRequestService.get(`${env.apiUrl}github/user`);
+  }
+
   getCommits(): Observable<any> {
     return this.baseRequestService.get(`${env.apiUrl}github/commits`);
   }

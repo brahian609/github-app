@@ -9,6 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  user: any = {};
   displayedColumns: string[] = ['name', 'date', 'commit', 'actions'];
   dataSource = new MatTableDataSource<any>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -16,6 +17,21 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    const user = localStorage.getItem('user');
+    if (!user) {
+      this.getUser();
+    }
+    this.getCommits();
+  }
+
+  getUser(): void {
+    this.appService.getUser().subscribe((response: any) => {
+      this.user = response;
+      localStorage.setItem('user', JSON.stringify(this.user));
+    });
+  }
+
+  getCommits(): void {
     this.appService.getCommits().subscribe((response: any) => {
       this.dataSource.data = response;
       console.log(this.dataSource.data);

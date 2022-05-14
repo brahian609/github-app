@@ -298,3 +298,11 @@ table {
 table>tr.element-row:not(.example-expanded-row):hover {
   background: whitesmoke;
 }
+
+.name-color {
+  color: #fff !important
+}
+
+.avatar-img {
+  border-radius: 25px
+}
