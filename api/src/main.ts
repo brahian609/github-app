@@ -12,9 +12,9 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-      .setTitle('GitHub Integration')
-      .setDescription('Create an integration with GitHub to consume some resources')
-      .build();
+    .setTitle('GitHub Integration')
+    .setDescription('Create an integration with GitHub to consume some resources')
+    .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/', app, document);
