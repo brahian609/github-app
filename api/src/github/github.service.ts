@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { UserDto } from './dto';
+import { CommitDto } from './dto';
+import { toCommitDto, toUserDto } from './shared/mapper';
 
 @Injectable()
 export class GithubService {
@@ -16,21 +17,25 @@ export class GithubService {
       this.GITHUB_REPO = configService.get<string>('GITHUB_REPO');
     }
 
-    getUser(): Observable<AxiosResponse<object[]>> {
-        return this.httpService.get(`${this.GITHUB_API_URL}/users/${this.GITHUB_USERNAME}`)
-            .pipe(
-                map((response: AxiosResponse) => {
+    async getUser(): Promise<UserDto> {
+        return await this.httpService.get(`${this.GITHUB_API_URL}/users/${this.GITHUB_USERNAME}`).toPromise()
+            .then((response: AxiosResponse) => {
+                if (response.status === 200) {
+                    return toUserDto(response.data);
+                } else {
                     return response.data;
-                }),
-            );
+                }
+            }).catch((error: any) => console.log(error));
     }
 
-    getCommits(): Observable<AxiosResponse<object[]>> {
-      return this.httpService.get(`${this.GITHUB_API_URL}/repos/${this.GITHUB_USERNAME}/${this.GITHUB_REPO}/commits`)
-        .pipe(
-          map((response: AxiosResponse) => {
-            return response.data;
-          }),
-        );
+    async getCommits(): Promise<CommitDto[]> {
+      return await this.httpService.get(`${this.GITHUB_API_URL}/repos/${this.GITHUB_USERNAME}/${this.GITHUB_REPO}/commits`).toPromise()
+          .then((response: AxiosResponse) => {
+              if (response.status === 200) {
+                  return response.data.map(row => toCommitDto(row));
+              } else {
+                  return response.data;
+              }
+          }).catch((error: any) => console.log(error));
     }
 }

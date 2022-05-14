@@ -1,17 +1,19 @@
 import { Controller, Get } from '@nestjs/common';
 import { GithubService } from './github.service';
+import { UserDto } from "./dto";
+import { CommitDto } from "./dto";
 
 @Controller('github')
 export class GithubController {
     constructor(private githubService: GithubService) {}
 
     @Get('user')
-    getUser(): object {
-        return this.githubService.getUser();
+    async getUser(): Promise<UserDto> {
+        return await this.githubService.getUser();
     }
 
     @Get('commits')
-    getAllCommits(): object {
-        return this.githubService.getCommits();
+    async getAllCommits(): Promise<CommitDto[]> {
+        return await this.githubService.getCommits();
     }
 }
